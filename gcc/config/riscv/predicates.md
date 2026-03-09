@@ -265,6 +265,14 @@
   return true;
  })
 
+;; If we invert every bit are we left with a constant that is 2^n - 1?
+(define_predicate "inverted_p2m1_operand"
+  (match_code "const_int")
+{
+  int val = exact_log2 (~UINTVAL (op) + 1);
+  return val >= 0;
+})
+
 (define_predicate "high_mask_shift_operand"
   (match_code "const_int")
 {

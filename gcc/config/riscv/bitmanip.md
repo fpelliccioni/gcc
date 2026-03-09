@@ -1365,3 +1365,35 @@
    (set (match_dup 0) (zero_extract:X (match_dup 3)
 				      (const_int 1)
 				      (zero_extend:X (match_dup 2))))])
+
+
+;; So the basic idea here is to realize that if we just want to test a
+;; single bit in SImode, we can left shift the input by 32 additional
+;; bit positions.  That removes any "junk" in the high order bits.  We
+;; already needed to do a shift, so that's essentially free.  We can
+;; adjust the constant for free as well.
+;;
+;; To test if a register is equal to a constant with a single bit set
+;; we an flip the bit and test against zero.
+(define_insn_and_split ""
+  [(set (match_operand:DI 0 "register_operand" "=r")
+	(any_eq:DI (ashift:SI (match_operand:SI 1 "register_operand" "r")
+			      (match_operand 2 "const_int_operand"))
+		   (match_operand 3 "const_int_operand")))
+   (clobber (match_scratch:DI 4 "=&r"))]
+  "(TARGET_64BIT
+    && TARGET_ZBS
+    && exact_log2 (UINTVAL (operands[3]) & 0xffffffff) >= 0)"
+
+  "#"
+  "&& reload_completed"
+  [(set (match_dup 4) (ashift:DI (match_dup 1) (match_dup 2)))
+   (set (match_dup 4) (xor:DI (match_dup 4) (match_dup 3)))
+   (set (match_dup 0) (any_eq:DI (match_dup 4) (const_int 0)))]
+{
+  operands[1] = gen_lowpart (DImode, operands[1]);
+  operands[2] = gen_int_mode (INTVAL (operands[2]) + 32, QImode);
+  operands[3] = gen_int_mode (UINTVAL (operands[3]) << 32, DImode);
+}
+  [(set_attr "type" "arith")])
+

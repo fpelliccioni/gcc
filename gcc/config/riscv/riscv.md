@@ -906,6 +906,28 @@
   }
   [(set_attr "type" "arith")])
 
+;; The immediately preceeding pattern can act as a bridge to this pattern which
+;; is just a shNadd + seq/sne.  I'd prefer this to be a simple define_split,
+;; but with the pattern above being a define_insn_and_split, that forces this
+;; one to be a define_insn_and_split as well for combine to work.
+(define_insn_and_split ""
+  [(set (match_operand:X 0 "register_operand" "=r")
+	(any_eq:X (ashift:X (match_operand:X 1 "register_operand" "r")
+			    (match_operand 2 "imm123_operand" "Ds3"))
+		  (match_operand 3 "const_int_operand")))
+   (clobber (match_scratch:X 4 "=&r"))]
+  "(TARGET_ZBA
+    && operands[3] != const0_rtx
+    && riscv_const_insns (operands[3], false))"
+  "#"
+  "&& reload_completed"
+  [(set (match_dup 4) (match_dup 3))
+   (set (match_dup 4) (plus:X (ashift:X (match_dup 1) (match_dup 2))
+			      (match_dup 4)))
+   (set (match_dup 0) (any_eq:X (match_dup 4) (const_int 0)))]
+  { operands[3] = gen_int_mode (-UINTVAL (operands[3]), word_mode); }
+  [(set_attr "type" "arith")])
+
 ;;
 ;;  ....................
 ;;
@@ -4959,6 +4981,103 @@
    (set (match_dup 0) (lshiftrt:X (match_dup 0) (match_dup 3)))]
   { operands[3] = GEN_INT (BITS_PER_WORD
 			   - exact_log2 (INTVAL (operands[3]) + 1)); })
+
+;; The idea here is an equality test of a right shifted value is really
+;; just a range test in certain circumstances.
+;;
+;; In those cases we can save an instruction by adjusting the constant
+;; we compare against, and using a slt instruction.  This relies on
+;; mvconst_internal, so will need adjustment when that goes away.
+(define_split
+  [(set (match_operand:X 0 "register_operand")
+	(any_eq:X (ashiftrt:X (match_operand:X 1 "register_operand")
+			      (match_operand 2 "const_int_operand"))
+		  (match_operand 3 "const_int_operand")))
+   (clobber (match_operand:X 4 "register_operand"))]
+  "(INTVAL (operands[3]) == 0
+    || (INTVAL (operands[3])
+	== (HOST_WIDE_INT) (HOST_WIDE_INT_M1U
+			    << (BITS_PER_WORD - 1 - INTVAL (operands[2])))))"
+  [(const_int 0)]
+{ 
+  /* This loads up the constant.  We're relying on mvconst_internal here.  */
+  unsigned HOST_WIDE_INT val = UINTVAL (operands[3]);
+  val <<= UINTVAL (operands[2]);
+  val += (HOST_WIDE_INT_1U << UINTVAL (operands[2]));
+  operands[5] = gen_int_mode (val, word_mode);
+  if (<CODE> == NE)
+    val -= 1;
+  emit_insn (gen_rtx_SET (operands[4], operands[5]));
+
+  /* If we are doing a range test for 0..2^n-1, then our code needs to be
+     unsigned.  If we're doing a range test around the minimum negative
+     value for the mode, then the code is signed.  */
+  rtx_code code = operands[3] == CONST0_RTX (word_mode) ? LTU : LT;
+
+  /* EQ/NE alters the order of the operands.  */
+  rtx rhs_op0 = operands[1];
+  rtx rhs_op1 = operands[4];
+  if (<CODE> == NE)
+    std::swap (rhs_op0, rhs_op1);
+ 
+  rtx x = gen_rtx_fmt_ee (code, word_mode, rhs_op0, rhs_op1);
+  emit_insn (gen_rtx_SET (operands[0], x));
+  DONE;
+})
+
+;; Another form of the above.
+;; It seems like we ought to be able to unify the conditions, at least
+;; in concept, even if the precise code is not the same.
+(define_split
+  [(set (match_operand:X 0 "register_operand")
+	(any_eq:X (and:X (match_operand:X 1 "register_operand")
+			 (match_operand 2 "inverted_p2m1_operand"))
+		  (match_operand 3 "const_int_operand")))
+   (clobber (match_operand:X 4 "register_operand"))]
+  "(INTVAL (operands[3]) == 0
+    || INTVAL (operands[3]) == wi::min_value (GET_MODE_PRECISION (word_mode),
+					      SIGNED))"
+  [(const_int 0)]
+{
+  unsigned HOST_WIDE_INT val = INTVAL (operands[3]) - INTVAL (operands[2]);
+
+  if (<CODE> == NE)
+    val -= 1;
+
+  /* This loads up the constant.  We're relying on mvconst_internal here.  */
+  operands[5] = gen_int_mode (val, word_mode); 
+  emit_insn (gen_rtx_SET (operands[4], operands[5]));
+
+  /* If we are doing a range test for 0..2^n-1, then our code needs to be
+     unsigned.  If we're doing a range test around the minimum negative
+     value for the mode, then the code is signed.  */
+  rtx_code code = operands[3] == CONST0_RTX (word_mode) ? LTU : LT;
+
+  /* EQ/NE alters the order of the operands.  */
+  rtx rhs_op0 = operands[1];
+  rtx rhs_op1 = operands[4];
+  if (<CODE> == NE)
+    std::swap (rhs_op0, rhs_op1);
+ 
+  rtx x = gen_rtx_fmt_ee (code, word_mode, rhs_op0, rhs_op1);
+  emit_insn (gen_rtx_SET (operands[0], x));
+  DONE;
+})
+
+;; So the basic idea here is to realize that after shifting we're just
+;; flipping a single bit and the upper bits are just copies of the
+;; flipped bit.
+(define_split
+  [(set (match_operand:X 0 "register_operand")
+	(plus:X (lshiftrt:X (match_operand:X 1 "register_operand")
+			    (match_operand 2 "const_int_operand"))
+		(match_operand 3 "const_int_operand")))
+   (clobber (match_operand:X 4 "register_operand"))]
+  "(TARGET_ZBS
+    && UINTVAL (operands[3]) == -(HOST_WIDE_INT_1U << (BITS_PER_WORD - INTVAL (operands[2]) - 1)))"
+  [(set (match_dup 4) (xor:X (match_dup 1) (match_dup 5)))
+   (set (match_dup 0) (ashiftrt:X (match_dup 4) (match_dup 2)))]
+  "{ operands[5] = gen_int_mode (HOST_WIDE_INT_1U << (BITS_PER_WORD - 1), word_mode); } ")
 
 ;; Standard extensions and pattern for optimization
 (include "bitmanip.md")

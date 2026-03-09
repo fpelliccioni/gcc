@@ -12261,3 +12261,20 @@ and,
 (simplify
  (BUILT_IN_CONSTANT_P (nop_convert@1 @0))
  (BUILT_IN_CONSTANT_P @0))
+
+(simplify
+  (ne (rshift (bit_not @0) INTEGER_CST@2) integer_zerop)
+  (with
+    {
+      tree utype = unsigned_type_for (TREE_TYPE (@0));
+      tree tem = const_binop (LSHIFT_EXPR, utype, build_one_cst (utype), @2);
+    }
+    (le:utype (convert:utype @0) (minus { build_all_ones_cst (utype); } { tem; }))))
+
+(simplify
+  (eq (bit_and (bit_xor @0 INTEGER_CST@3) INTEGER_CST@2) integer_zerop)
+  (with
+    {
+      tree utype = unsigned_type_for (TREE_TYPE (@0));
+    }
+  (eq (lshift:utype (convert:utype @0) (CLZ:utype @2)) (lshift:utype @3 (CLZ:utype @2)))))
