@@ -174,7 +174,8 @@
    (set (match_dup 0) (if_then_else:X (match_op_dup:X 1
 				       [(match_dup 2) (const_int 0)])
 				      (const_int 0)
-				      (match_dup 4)))])
+				      (match_dup 4)))]
+  { PUT_CODE (operands[1], GET_CODE (operands[1]) == EQ ? NE : EQ); })
 
 (define_split
   [(set (match_operand:X 0 "register_operand")
@@ -188,7 +189,8 @@
    (set (match_dup 0) (if_then_else:X (match_op_dup:X 1
 				       [(match_dup 2) (const_int 0)])
 				      (const_int 0)
-				      (match_dup 4)))])
+				      (match_dup 4)))]
+  { PUT_CODE (operands[1], GET_CODE (operands[1]) == EQ ? NE : EQ); })
 
 ;; Similarly but LU/LTU which allows an arith_operand
 (define_split
@@ -203,7 +205,8 @@
    (set (match_dup 0) (if_then_else:X (match_op_dup:X 1
 				       [(match_dup 2) (const_int 0)])
 				      (const_int 0)
-				      (match_dup 5)))])
+				      (match_dup 5)))]
+  { PUT_CODE (operands[1], GET_CODE (operands[1]) == EQ ? NE : EQ); })
 
 ;; Finally LE/LEU which requires sle_operand.
 (define_split
@@ -218,7 +221,8 @@
    (set (match_dup 0) (if_then_else:X (match_op_dup:X 1
 				       [(match_dup 2) (const_int 0)])
 				      (const_int 0)
-				      (match_dup 5)))])
+				      (match_dup 5)))]
+  { PUT_CODE (operands[1], GET_CODE (operands[1]) == EQ ? NE : EQ); })
 
 ;; We can splat the sign bit across a GPR with a arithmetic right shift
 ;; which gives us a 0, -1 result.  We then turn on bit #0 unconditionally
