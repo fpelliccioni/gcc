@@ -1,3 +1,50 @@
+2026-03-13  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	Backported from master:
+	2026-03-11  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	* config/gcn/gcn.cc (gcn_addr_space_convert): Use
+	SHARED_BASE_REG to find flat address space base of LDS.
+
+2026-03-13  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	Backported from master:
+	2026-03-11  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	PR target/124044
+	* config/gcn/gcn.cc (gcn_addr_space_resolve_default): New
+	function.  Converts from ADDR_SPACE_DEFAULT to
+	DEFAULT_ADDR_SPACE.
+	(gcn_addr_space_convert): Resolve from_type and to_type address
+	spaces.
+
+2026-03-13  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	Backported from master:
+	2026-03-11  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	* config/gcn/gcn.cc (gcn_regno_reg_class): Handle
+	MEMORY_APERTURE_REGS.
+	(gcn_hard_regno_rename_ok): Return false for memory aperture
+	regs.
+	(gcn_memory_move_cost): Handle memory aperture regs the same as
+	general registers.
+	(gcn_hard_regno_nregs): Handle MEMORY_APERTURE_REGS.
+	* config/gcn/gcn.h (SHARED_BASE_REG): Define.
+	(SHARED_LIMT_REG): Ditto.
+	(PRIVATE_BASE_REG): Ditto.
+	(PRIVATE_LIMT_REG): Ditto.
+	(MEMORY_APERTURE_REG_P): New macro.  Evaluates to non-zero if
+	parameter is one of the above registers.
+	(SSRC_REGNO_P): Also evaluate to non-zero for aperture regs, as
+	they can be sources to scalar instructions.
+	(enum reg_class): New class: MEMORY_APERTURE_REGS.
+	(REG_CLASS_NAMES): Provide name for that class.
+	(MEMORY_APERTURE_REGS_MASK): New helper macro.  Value of
+	NAMED_REG_MASK2 for each of the memory aperture regs.
+	(REG_CLASS_CONTENTS): Add the above registers to
+	MEMORY_APERTURE_REGS, SGPR_VOP_SRC_REGS, and SGPR_SRC_REGS.
+
 2026-02-26  Paul-Antoine Arras  <parras@baylibre.com>
 
 	Backported from master:

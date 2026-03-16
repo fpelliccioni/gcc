@@ -1,3 +1,26 @@
+2026-03-13  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	Backported from master:
+	2026-03-11  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	* gcc.target/gcn/addr-space-convert-1.c: New test.
+	* gcc.target/gcn/addr-space-convert-2.c: New test.
+
+2026-03-13  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	Backported from master:
+	2026-03-11  Arsen Arsenović  <aarsenovic@baylibre.com>
+
+	* gcc.target/gcn/pr124044.c: New test.
+
+2026-02-26  Paul-Antoine Arras  <parras@baylibre.com>
+
+	Backported from master:
+	2026-02-23  Paul-Antoine Arras  <parras@baylibre.com>
+
+	PR fortran/120505
+	* gfortran.dg/gomp/map-subarray-4.f90: Update scan dumps for -m32.
+
 2026-02-26  Paul-Antoine Arras  <parras@baylibre.com>
 
 	Backported from master:
