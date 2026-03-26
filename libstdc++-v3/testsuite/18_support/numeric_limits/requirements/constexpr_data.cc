@@ -1,4 +1,5 @@
 // { dg-do compile { target c++11 } }
+// { dg-additional-options "-Wno-deprecated-declarations" { target c++23 } }
 
 // Copyright (C) 2010-2026 Free Software Foundation, Inc.
 //

@@ -1,4 +1,5 @@
 // { dg-add-options ieee }
+// { dg-additional-options "-Wno-deprecated-declarations" { target c++23 } }
 
 // 1999-08-23 bkoz
 

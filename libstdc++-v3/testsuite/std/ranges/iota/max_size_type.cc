@@ -17,6 +17,7 @@
 
 // { dg-do run { target c++20 } }
 // { dg-timeout-factor 4 }
+// { dg-additional-options "-Wno-deprecated-declarations" { target c++23 } }
 
 #include <limits>
 #include <ranges>
