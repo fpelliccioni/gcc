@@ -15121,6 +15121,19 @@ grokdeclarator (const cp_declarator *declarator,
 		       "explicit object member function only available "
 		       "with %<-std=c++23%> or %<-std=gnu++23%>");
 
+	    /* CWG2915: an explicit object parameter cannot have (cv) void
+	       type.  Reject it, then continue parsing as if the parameter
+	       list were '(void)' (i.e. no parameters), matching Clang's
+	       recovery behaviour.  */
+	    if (xobj_parm && VOID_TYPE_P (TREE_TYPE (xobj_parm)))
+	      {
+		error_at (DECL_SOURCE_LOCATION (xobj_parm),
+			  "explicit object parameter cannot have %<void%> "
+			  "type");
+		xobj_parm = NULL_TREE;
+		is_xobj_member_function = false;
+	      }
+
 	    if (xobj_parm && decl_context == TYPENAME)
 	      {
 		/* We inform in every case, just differently depending on what
