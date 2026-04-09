@@ -1,7 +1,7 @@
 // { dg-do run { target c++11 } }
 // { dg-require-cstdint "" }
 // { dg-options "-fchar8_t" }
-// { dg-additional-options "-Wno-deprecated-declarations" { target c++23 } }
+// { dg-prune-output "(has_denorm|has_denorm_loss|float_denorm_style).* is deprecated" }
 
 // Copyright (C) 2017-2026 Free Software Foundation, Inc.
 //

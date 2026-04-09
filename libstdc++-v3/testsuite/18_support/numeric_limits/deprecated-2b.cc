@@ -26,3 +26,4 @@ auto c = std::numeric_limits<int>::has_denorm; // { dg-warning "is deprecated" }
 auto d = std::numeric_limits<int>::has_denorm_loss; // { dg-warning "is deprecated" }
 
 // { dg-prune-output "declared here" }
+// { dg-prune-output "max_size_type\\.h.*(float_denorm_style|has_denorm|has_denorm_loss).* is deprecated" }
