@@ -1,5 +1,6 @@
 // { dg-do run { target c++11 } }
 // { dg-require-cstdint "" }
+// { dg-prune-output "(has_denorm|has_denorm_loss|float_denorm_style).* is deprecated" }
 
 // 2008-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
 //

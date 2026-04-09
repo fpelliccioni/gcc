@@ -1,4 +1,5 @@
 // { dg-add-options ieee }
+// { dg-prune-output "(has_denorm|has_denorm_loss|float_denorm_style).* is deprecated" }
 
 // 1999-08-23 bkoz
 

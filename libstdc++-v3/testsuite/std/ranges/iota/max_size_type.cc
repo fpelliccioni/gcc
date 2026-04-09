@@ -17,6 +17,7 @@
 
 // { dg-do run { target c++20 } }
 // { dg-timeout-factor 4 }
+// { dg-prune-output "(has_denorm|has_denorm_loss|float_denorm_style).* is deprecated" }
 
 #include <limits>
 #include <ranges>

@@ -186,7 +186,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    *  These values represent the presence or absence of a variable number
    *  of exponent bits.  This type is used in the std::numeric_limits class.
   */
-  enum float_denorm_style
+  enum
+  _GLIBCXX23_DEPRECATED
+  float_denorm_style
   {
     /// Indeterminate at compile time whether denormalized values are allowed.
     denorm_indeterminate = -1,
@@ -270,11 +272,16 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
 
     /** See std::float_denorm_style for more information.  */
-    static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm = denorm_absent;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
+      _GLIBCXX23_DEPRECATED = denorm_absent;
 
     /** True if loss of accuracy is detected as a denormalization loss,
 	rather than as an inexact result. */
-    static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+    static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+      _GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
     /** True if-and-only-if the type adheres to the IEC 559 standard, also
 	known as IEEE 754.  (Only makes sense for floating point types.)  */
@@ -426,9 +433,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR bool
       infinity() _GLIBCXX_USE_NOEXCEPT { return false; }
@@ -496,9 +507,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR
       char infinity() _GLIBCXX_USE_NOEXCEPT { return char(); }
@@ -564,9 +579,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR signed char
       infinity() _GLIBCXX_USE_NOEXCEPT { return static_cast<signed char>(0); }
@@ -635,9 +654,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR unsigned char
       infinity() _GLIBCXX_USE_NOEXCEPT
@@ -707,9 +730,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR wchar_t
       infinity() _GLIBCXX_USE_NOEXCEPT { return wchar_t(); }
@@ -771,9 +798,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-	= denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR char8_t
       infinity() _GLIBCXX_USE_NOEXCEPT { return char8_t(); }
@@ -836,8 +867,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static constexpr bool has_infinity = false;
       static constexpr bool has_quiet_NaN = false;
       static constexpr bool has_signaling_NaN = false;
-      static constexpr float_denorm_style has_denorm = denorm_absent;
-      static constexpr bool has_denorm_loss = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+      static constexpr float_denorm_style has_denorm
+	_GLIBCXX23_DEPRECATED = denorm_absent;
+      static constexpr bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static constexpr char16_t
       infinity() noexcept { return char16_t(); }
@@ -897,8 +933,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static constexpr bool has_infinity = false;
       static constexpr bool has_quiet_NaN = false;
       static constexpr bool has_signaling_NaN = false;
-      static constexpr float_denorm_style has_denorm = denorm_absent;
-      static constexpr bool has_denorm_loss = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+      static constexpr float_denorm_style has_denorm
+	_GLIBCXX23_DEPRECATED = denorm_absent;
+      static constexpr bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static constexpr char32_t
       infinity() noexcept { return char32_t(); }
@@ -963,9 +1004,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR short
       infinity() _GLIBCXX_USE_NOEXCEPT { return short(); }
@@ -1032,9 +1077,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR unsigned short
       infinity() _GLIBCXX_USE_NOEXCEPT
@@ -1103,9 +1152,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR int
       infinity() _GLIBCXX_USE_NOEXCEPT { return static_cast<int>(0); }
@@ -1172,9 +1225,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR unsigned int
       infinity() _GLIBCXX_USE_NOEXCEPT { return static_cast<unsigned int>(0); }
@@ -1242,9 +1299,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR long
       infinity() _GLIBCXX_USE_NOEXCEPT { return static_cast<long>(0); }
@@ -1311,9 +1372,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR unsigned long
       infinity() _GLIBCXX_USE_NOEXCEPT
@@ -1384,9 +1449,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR long long
       infinity() _GLIBCXX_USE_NOEXCEPT { return static_cast<long long>(0); }
@@ -1454,9 +1523,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-       = denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_absent;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR unsigned long long
       infinity() _GLIBCXX_USE_NOEXCEPT
@@ -1523,9 +1596,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;		\
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;		\
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;	\
+_Pragma("GCC diagnostic push")					\
+_Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")	\
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm	\
+       _GLIBCXX23_DEPRECATED						\
 	= denorm_absent;						\
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;	\
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss	\
+       _GLIBCXX23_DEPRECATED = false;	\
+_Pragma("GCC diagnostic pop")					\
 									\
       static _GLIBCXX_CONSTEXPR TYPE					\
       infinity() _GLIBCXX_USE_NOEXCEPT					\
@@ -1592,9 +1670,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = false;		\
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = false;		\
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;	\
+_Pragma("GCC diagnostic push")					\
+_Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")	\
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm	\
+       _GLIBCXX23_DEPRECATED						\
        = denorm_absent; 						\
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;	\
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss	\
+       _GLIBCXX23_DEPRECATED = false;	\
+_Pragma("GCC diagnostic pop")					\
 									\
       static _GLIBCXX_CONSTEXPR unsigned TYPE 				\
       infinity() _GLIBCXX_USE_NOEXCEPT 					\
@@ -1713,10 +1796,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = __FLT_HAS_INFINITY__;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = __FLT_HAS_QUIET_NAN__;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = has_quiet_NaN;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
+       _GLIBCXX23_DEPRECATED
 	= bool(__FLT_HAS_DENORM__) ? denorm_present : denorm_absent;
       static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+       _GLIBCXX23_DEPRECATED
        = __glibcxx_float_has_denorm_loss;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR float
       infinity() _GLIBCXX_USE_NOEXCEPT { return __builtin_huge_valf(); }
@@ -1730,8 +1818,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_CONSTEXPR float
       denorm_min() _GLIBCXX_USE_NOEXCEPT { return __FLT_DENORM_MIN__; }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR bool is_iec559
 	= has_infinity && has_quiet_NaN && has_denorm == denorm_present;
+#pragma GCC diagnostic pop
       static _GLIBCXX_USE_CONSTEXPR bool is_bounded = true;
       static _GLIBCXX_USE_CONSTEXPR bool is_modulo = false;
 
@@ -1788,10 +1879,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = __DBL_HAS_INFINITY__;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = __DBL_HAS_QUIET_NAN__;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = has_quiet_NaN;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
+       _GLIBCXX23_DEPRECATED
 	= bool(__DBL_HAS_DENORM__) ? denorm_present : denorm_absent;
       static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+       _GLIBCXX23_DEPRECATED
         = __glibcxx_double_has_denorm_loss;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR double
       infinity() _GLIBCXX_USE_NOEXCEPT { return __builtin_huge_val(); }
@@ -1805,8 +1901,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_CONSTEXPR double
       denorm_min() _GLIBCXX_USE_NOEXCEPT { return __DBL_DENORM_MIN__; }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR bool is_iec559
 	= has_infinity && has_quiet_NaN && has_denorm == denorm_present;
+#pragma GCC diagnostic pop
       static _GLIBCXX_USE_CONSTEXPR bool is_bounded = true;
       static _GLIBCXX_USE_CONSTEXPR bool is_modulo = false;
 
@@ -1863,10 +1962,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_USE_CONSTEXPR bool has_infinity = __LDBL_HAS_INFINITY__;
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN = __LDBL_HAS_QUIET_NAN__;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = has_quiet_NaN;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
+       _GLIBCXX23_DEPRECATED
 	= bool(__LDBL_HAS_DENORM__) ? denorm_present : denorm_absent;
       static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+       _GLIBCXX23_DEPRECATED
 	= __glibcxx_long_double_has_denorm_loss;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR long double
       infinity() _GLIBCXX_USE_NOEXCEPT { return __builtin_huge_vall(); }
@@ -1880,8 +1984,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       static _GLIBCXX_CONSTEXPR long double
       denorm_min() _GLIBCXX_USE_NOEXCEPT { return __LDBL_DENORM_MIN__; }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR bool is_iec559
 	= has_infinity && has_quiet_NaN && has_denorm == denorm_present;
+#pragma GCC diagnostic pop
       static _GLIBCXX_USE_CONSTEXPR bool is_bounded = true;
       static _GLIBCXX_USE_CONSTEXPR bool is_modulo = false;
 
@@ -1956,10 +2063,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 	= __glibcxx_concat3 (__FLT, BITSIZE, _HAS_QUIET_NAN__);		\
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN		\
 	= has_quiet_NaN;						\
+_Pragma("GCC diagnostic push")						\
+_Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")		\
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm	\
+	_GLIBCXX23_DEPRECATED						\
 	= bool(__glibcxx_concat3 (__FLT, BITSIZE, _HAS_DENORM__))	\
 	  ? denorm_present : denorm_absent;				\
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;	\
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss		\
+	_GLIBCXX23_DEPRECATED = false;					\
+_Pragma("GCC diagnostic pop")						\
 									\
       static _GLIBCXX_CONSTEXPR _Float##BITSIZE				\
       infinity() _GLIBCXX_USE_NOEXCEPT					\
@@ -1977,8 +2089,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       denorm_min() _GLIBCXX_USE_NOEXCEPT				\
       { return __glibcxx_concat3 (__FLT, BITSIZE, _DENORM_MIN__); }	\
 									\
+_Pragma("GCC diagnostic push")					\
+_Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")	\
       static _GLIBCXX_USE_CONSTEXPR bool is_iec559			\
 	= has_infinity && has_quiet_NaN && has_denorm == denorm_present;\
+_Pragma("GCC diagnostic pop")					\
       static _GLIBCXX_USE_CONSTEXPR bool is_bounded = true; 		\
       static _GLIBCXX_USE_CONSTEXPR bool is_modulo = false; 		\
 									\
@@ -2055,9 +2170,14 @@ __glibcxx_float_n(128)
       static _GLIBCXX_USE_CONSTEXPR bool has_quiet_NaN
 	= __BFLT16_HAS_QUIET_NAN__;
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = has_quiet_NaN;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
+       _GLIBCXX23_DEPRECATED
 	= bool(__BFLT16_HAS_DENORM__) ? denorm_present : denorm_absent;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR __gnu_cxx::__bfloat16_t
       infinity() _GLIBCXX_USE_NOEXCEPT
@@ -2075,8 +2195,11 @@ __glibcxx_float_n(128)
       denorm_min() _GLIBCXX_USE_NOEXCEPT
       { return __BFLT16_DENORM_MIN__; }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR bool is_iec559
 	= has_infinity && has_quiet_NaN && has_denorm == denorm_present;
+#pragma GCC diagnostic pop
       static _GLIBCXX_USE_CONSTEXPR bool is_bounded = true;
       static _GLIBCXX_USE_CONSTEXPR bool is_modulo = false;
 
@@ -2155,9 +2278,13 @@ __glibcxx_float_n(128)
 #else
       static _GLIBCXX_USE_CONSTEXPR bool has_signaling_NaN = false;
 #endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
       static _GLIBCXX_USE_CONSTEXPR float_denorm_style has_denorm
-	= denorm_present;
-      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss = false;
+       _GLIBCXX23_DEPRECATED = denorm_present;
+      static _GLIBCXX_USE_CONSTEXPR bool has_denorm_loss
+	_GLIBCXX23_DEPRECATED = false;
+#pragma GCC diagnostic pop
 
       static _GLIBCXX_CONSTEXPR __float128
       infinity() _GLIBCXX_USE_NOEXCEPT

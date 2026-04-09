@@ -1,4 +1,5 @@
 // { dg-do compile { target c++11 } }
+// { dg-prune-output "(has_denorm|has_denorm_loss|float_denorm_style).* is deprecated" }
 
 // Copyright (C) 2010-2026 Free Software Foundation, Inc.
 //
